@@ -3,10 +3,10 @@
 require_once 'config.php';
 
 // --- 2. Database Connection ---
-$servername = DB_HOST;
-$username   = DB_USER;         
-$password   = DB_PASS;             
-$dbname     = DB_NAME; 
+$servername = "localhost";
+$username   = "root";         
+$password   = "";             
+$dbname     = "care_directory"; 
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -70,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // --- 4. Prepare the Gemini API Call ---
-    $apiKey = GEMINI_API_KEY; 
+    $apiKey = GEMINI_API_KEY;  
     $apiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" . $apiKey;
 
     // Build patient demographics
@@ -83,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 PATIENT INFO:
 $demographics
-Location: $user_location (within $user_radius miles)
+Location: $user_location (within $user_radius km)
 Symptoms: $user_symptoms
 
 AVAILABLE AFFILIATES:
@@ -169,20 +169,26 @@ This is a referral service for ancillary care providers and is not a substitute 
     <head>
         <meta charset="UTF-8">
         <title>Your Care Match Results</title>
-        <link rel="stylesheet" href="index.css">
+        <link rel="stylesheet" href="style.css">
         <style>
             body {
                 padding: 20px;
+        
             }
             .results-content {
                 max-width: 800px;
                 margin: 0 auto;
+                background-color: white;
+                padding: 30px;
+                border-radius: 20px;
+                border: 5px solid #0274b3;
+                height: auto;
             }
         </style>
     </head>
     <body>
         <div class="results-content">
-            <h2>Your Care Matches</h2>
+            <h1>Your Care Matches</h1>
             
             <?php
             // Replace section headers with proper HTML headings
