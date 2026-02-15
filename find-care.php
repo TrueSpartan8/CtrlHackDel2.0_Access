@@ -52,8 +52,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $provider_context = "";
     
     if ($user_lat && $user_lng) {
-        // Get providers - limit to 12 for faster API response
-        $sql = "SELECT business_name, services, contact_info FROM providers LIMIT 12";
+        // Get all providers - we'll mention the radius to the AI
+        $sql = "SELECT business_name, services, contact_info FROM providers LIMIT 20";
         $result = $conn->query($sql);
         
         if ($result && $result->num_rows > 0) {
@@ -83,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 PATIENT INFO:
 $demographics
-Location: $user_location (within $user_radius km)
+Location: $user_location (within $user_radius miles)
 Symptoms: $user_symptoms
 
 AVAILABLE AFFILIATES:
@@ -135,11 +135,7 @@ IMPORTANT
 This is a referral service for ancillary care providers and is not a substitute for professional medical advice or specialist care. Please contact the clinic directly for an appointment or immediate care. For urgent medical concerns, call 911 or go to your nearest emergency room.";
 
     $data = [
-        "contents" => [["parts" => [["text" => $prompt]]]],
-        "generationConfig" => [
-            "temperature" => 0.5,  // Slightly more focused than default (1.0)
-            "maxOutputTokens" => 1000,  // Limit response length for speed
-        ]
+        "contents" => [["parts" => [["text" => $prompt]]]]
     ];
 
     // --- 5. Execute cURL ---
@@ -181,22 +177,6 @@ This is a referral service for ancillary care providers and is not a substitute 
             .results-content {
                 max-width: 800px;
                 margin: 0 auto;
-                background-color: white;
-                padding: 30px;
-                border-radius: 20px;
-                box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
-            }
-            .results-content h2, .results-content h3 {
-                color: #0274b3;
-            }
-            .results-content p {
-                color: #333;
-            }
-            .results-content a {
-                color: #0274b3;
-            }
-            .results-content a:hover {
-                color: #a4deff;
             }
         </style>
     </head>
