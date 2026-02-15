@@ -1,9 +1,12 @@
 <?php
-// --- 1. Database Connection ---
-$servername = "localhost";
-$username   = "root";         
-$password   = "";             
-$dbname     = "care_directory"; 
+// --- 1. Load Configuration ---
+require_once 'config.php';
+
+// --- 2. Database Connection ---
+$servername = DB_HOST;
+$username   = DB_USER;         
+$password   = DB_PASS;             
+$dbname     = DB_NAME; 
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -49,8 +52,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $provider_context = "";
     
     if ($user_lat && $user_lng) {
-        // Get all providers - we'll mention the radius to the AI
-        $sql = "SELECT business_name, services, contact_info FROM providers";
+        // Get providers - limit to 12 for faster API response
+        $sql = "SELECT business_name, services, contact_info FROM providers LIMIT 12";
         $result = $conn->query($sql);
         
         if ($result && $result->num_rows > 0) {
@@ -67,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // --- 4. Prepare the Gemini API Call ---
-    $apiKey = "AIzaSyBuafqLFga6DOXZZ7YvotNx4vKOVOyeFi0"; 
+    $apiKey = GEMINI_API_KEY; 
     $apiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" . $apiKey;
 
     // Build patient demographics
@@ -132,7 +135,11 @@ IMPORTANT
 This is a referral service for ancillary care providers and is not a substitute for professional medical advice or specialist care. Please contact the clinic directly for an appointment or immediate care. For urgent medical concerns, call 911 or go to your nearest emergency room.";
 
     $data = [
-        "contents" => [["parts" => [["text" => $prompt]]]]
+        "contents" => [["parts" => [["text" => $prompt]]]],
+        "generationConfig" => [
+            "temperature" => 0.5,  // Slightly more focused than default (1.0)
+            "maxOutputTokens" => 1000,  // Limit response length for speed
+        ]
     ];
 
     // --- 5. Execute cURL ---
@@ -166,11 +173,10 @@ This is a referral service for ancillary care providers and is not a substitute 
     <head>
         <meta charset="UTF-8">
         <title>Your Care Match Results</title>
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="index.css">
         <style>
             body {
                 padding: 20px;
-        
             }
             .results-content {
                 max-width: 800px;
@@ -178,14 +184,25 @@ This is a referral service for ancillary care providers and is not a substitute 
                 background-color: white;
                 padding: 30px;
                 border-radius: 20px;
-                border: 5px solid #0274b3;
-                height: auto;
+                box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+            }
+            .results-content h2, .results-content h3 {
+                color: #0274b3;
+            }
+            .results-content p {
+                color: #333;
+            }
+            .results-content a {
+                color: #0274b3;
+            }
+            .results-content a:hover {
+                color: #a4deff;
             }
         </style>
     </head>
     <body>
         <div class="results-content">
-            <h1>Your Care Matches</h1>
+            <h2>Your Care Matches</h2>
             
             <?php
             // Replace section headers with proper HTML headings

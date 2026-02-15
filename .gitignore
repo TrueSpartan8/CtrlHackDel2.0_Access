@@ -1,0 +1,9 @@
+# Ignore config file with API keys
+config.php
+
+# Ignore environment files
+.env
+
+# Ignore system files
+.DS_Store
+Thumbs.db
