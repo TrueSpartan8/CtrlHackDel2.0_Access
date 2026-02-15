@@ -1,0 +1,245 @@
+@font-face {
+  font-family: title; /* set name */
+  src: url(fonts/BricolageBold.ttf);
+}
+
+@font-face {
+    font-family: body;
+    src: url(fonts/DMSansRegular.ttf);
+}
+
+html {
+    background-image: url(images/Background.png);
+    background-size: cover;
+    background-origin: top;
+    scroll-behavior: smooth;
+}
+
+div {
+    height: 100vh;
+}
+
+.form-wrapper {
+    height: 100vh;
+    display: flex;
+    align-items: center; /* Vertical center */
+    justify-content: center; /* Horizontal center */
+}
+
+#mainLogo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+    margin-bottom: 0%;
+    margin-top: 12.5%;
+}
+
+h1, h2, h3, h4, a
+{
+    text-align: center;
+    font-family: title;
+}
+
+p {
+    font-family: body;
+}
+
+#findCareLink {
+    display: block;
+    border: 5px solid #0274b3;
+    border-radius: 20px;
+    width: fit-content;
+    margin: 2.5% auto 0 auto;  /* Changed this - centers the element */
+    font-size: 1.5em;
+    padding: 1pc;
+    color: black;
+    text-decoration: none;
+    text-align: center;
+}
+
+#findCareLink:hover{
+    color: #a4deff;
+    border-color: #a4deff;
+}
+
+form{
+    border: 10px solid black;
+    border-radius: 40px;
+    background-color: #a4deff;
+    border-color: #ffffff;
+    color: #0274b3;
+    overflow: hidden;
+    display: block;
+    padding: 1pc;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    box-shadow: 5px 5px 2px #025785;
+}
+
+
+input, select, option, textarea{
+    background-color: white;
+    color: #0274b3;
+    size: 80%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+    width: 100%;
+    font-size: 1.5em;
+    text-align: center;
+    border-radius: 10px;
+    font-family: body;
+}
+
+textarea {
+    margin-top: auto;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #0274b3;
+    text-align: center;
+    opacity: 1; /* Firefox shows placeholders at reduced opacity by default */
+}
+
+#aboutUs{
+    display: block;
+    width: 40%;
+    padding: 1pc;
+    border-radius: 20px;
+    color: #0274b3;
+    font-family: body;
+    margin-left: 10%;
+}
+
+#aboutUsText{
+    background-color: white;
+    font-size: 1.2em;
+}
+
+#aboutUsTitle {
+    text-align: left;
+    font-size: 3em;
+}
+
+#laptopImage {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top:auto;
+    margin-bottom: auto;
+    align-items: center;
+    width: 65%;
+    border: #0274b3 solid 10px;
+    border-radius: 20px;
+}
+
+#plusImage {
+    display: block;
+    position: relative;
+    left: 120%;
+    bottom: 40%;
+    height: 50%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+table {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+    table-layout: fixed;
+}
+
+table h2{
+    font-size: 2em;
+    text-align: left;
+}
+
+table p {
+    font-size: 1.2em;
+}
+
+#careIcon{
+    width: 18em;
+}
+
+#careTitle, #careSubtitle {
+    margin-top: 3%;
+    color: white;
+}
+
+#careTitle {
+    font-size: 2.8em;
+}
+
+#careSubtitle {
+    font-size: 2em;
+}
+
+table h3 {
+    font-size: 1.5em;
+    min-height: 60px;  /* Force all labels to same height */
+    display: flex;
+    align-items: center;  /* Vertically center text within the label */
+    justify-content: center;
+    margin: 0;  /* Remove default margins */
+}
+
+table td {
+    vertical-align: top;  /* Align all content to top */
+    padding: 10px;  /* Add consistent padding */
+}
+
+table tr {
+    height: auto;  /* Let row size naturally */
+}
+
+input[type="submit"] {
+    width: auto;
+    padding: 2%;
+    margin-top: 2%;
+}
+
+input[type="submit"]:hover {
+    background-color: #0274b3;
+    color: white;
+    border-color: white;
+}
+
+form h1 {
+    color: white;
+    size: 2em;
+}
+
+/* Loading spinner */
+.spinner {
+    border: 8px solid rgba(2, 116, 179, 0.3);  /* Light blue transparent */
+    border-top: 8px solid #0274b3;  /* Your blue color */
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+#loadingScreen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding-top: 60vh;  /* Move it much lower */
+}
+
+#loadingScreen h2, #loadingScreen p {
+    color: #0274b3;  /* Blue text instead of white */
+}
